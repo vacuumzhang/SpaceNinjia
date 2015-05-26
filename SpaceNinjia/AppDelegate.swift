@@ -1,9 +1,9 @@
 //
 //  AppDelegate.swift
-//  SpaceNinjia
+//  spaceninja
 //
-//  Created by Ruiyon.Z on 5/26/15.
-//  Copyright (c) 2015 Ruiyong Zhang. All rights reserved.
+//  Created by Yanbo Chen on 5/26/15.
+//  Copyright (c) 2015 Yanbo. All rights reserved.
 //
 
 import UIKit

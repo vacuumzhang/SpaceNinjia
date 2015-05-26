@@ -1,94 +1,105 @@
 //
 //  GameScene.swift
-//  SpaceNinjia
+//  spaceninja
 //
-//  Created by Ruiyon.Z on 5/26/15.
-//  Copyright (c) 2015 Ruiyong Zhang. All rights reserved.
+//  Created by Yanbo Chen on 5/26/15.
+//  Copyright (c) 2015 Yanbo. All rights reserved.
 //
 
 import SpriteKit
 
-let SpaceShipName = "Spaceship"
-let BgName = "bg"
-var isFingerOnPaddle = false
-
-
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
+    
+  
+    
+    var ship = SKSpriteNode()
+    var actionMoveUp = SKAction()
+    var actionMoveDown = SKAction()
+    var lastMissileAdded : NSTimeInterval = 0.0
+    
+    let shipCategory = 0x1 << 1
+    let obstacleCategory = 0x1 << 2
+    
+    let backgroundVelocity : CGFloat = 3.0
+    let missileVelocity : CGFloat = 5.0
+    
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         self.backgroundColor = SKColor.whiteColor()
-    }
-    
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        var touch = touches.first as! UITouch
-        var touchLocation = touch.locationInNode(self)
-        isFingerOnPaddle = true
-//        if let body = physicsWorld.bodyAtPoint(touchLocation) {
-//            if body.node!.name == SpaceShipName {
-//                println("Began touch on ship")
-//                isFingerOnPaddle = true
-//            }
-//            if body.node!.name == BgName {
-//                println("Began touch on bg")
-//                isFingerOnPaddle = true
-//            }
-//            
-//            
-//        }
+        self.initializingScrollingBackground()
         
+        self.addMissile()
+        
+        // Making self delegate of physics world
+        self.physicsWorld.gravity = CGVectorMake(0, 0)
+        self.physicsWorld.contactDelegate = self
     }
     
+
     
-    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
-        // 1. Check whether user touched the paddle
-        if isFingerOnPaddle {
-            // 2. Get touch location
-            var touch = touches.first as! UITouch
-            var touchLocation = touch.locationInNode(self)
-            var previousLocation = touch.previousLocationInNode(self)
-            
-            // 3. Get node for paddle
-            var ship = childNodeWithName(SpaceShipName) as! SKSpriteNode
-            
-            // 4. Calculate new position along x for paddle
-            var shipX = ship.position.x + (touchLocation.x - previousLocation.x)
-            var shipY = ship.position.y + (touchLocation.y - previousLocation.y)
-            
-            // 5. Limit x so that paddle won't leave screen to left or right
-            shipX = max(shipX, ship.size.width/2)
-            shipX = min(shipX, size.width - ship.size.width/2)
-            
-            // 6. Update paddle position
-            ship.position = CGPointMake(shipX, shipY)
+    func initializingScrollingBackground() {
+        for var index = 0; index < 2; ++index {
+            let bg = SKSpriteNode(imageNamed: "Space")
+            bg.position = CGPoint(x: 0, y: index * Int(bg.size.height))
+            bg.anchorPoint = CGPointZero
+            bg.name = "background"
+            self.addChild(bg)
         }
     }
-    
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        isFingerOnPaddle = false
+    func moveBackground() {
+        self.enumerateChildNodesWithName("background", usingBlock: { (node, stop) -> Void in
+            if let bg = node as? SKSpriteNode {
+                bg.position = CGPoint(x: bg.position.x, y: bg.position.y  - self.backgroundVelocity)
+                
+                // Checks if bg node is completely scrolled off the screen, if yes, then puts it at the end of the other node.
+                if bg.position.y <= -bg.size.height {
+                    bg.position = CGPointMake(bg.position.x , bg.position.y + bg.size.height * 2)
+                }
+            }
+        })
     }
     
+    func addMissile() {
+        // Initializing spaceship node
+        var missile = SKSpriteNode(imageNamed: "Missile")
+        missile.setScale(0.15)
+        
+        // Adding SpriteKit physics body for collision detection
+        missile.physicsBody = SKPhysicsBody(rectangleOfSize: missile.size)
+        missile.physicsBody?.categoryBitMask = UInt32(obstacleCategory)
+        missile.physicsBody?.dynamic = true
+        missile.physicsBody?.contactTestBitMask = UInt32(shipCategory)
+        missile.physicsBody?.collisionBitMask = 0
+        missile.physicsBody?.usesPreciseCollisionDetection = true
+        missile.name = "missile"
+        
+        // Selecting random y position for missile
+        var random : CGFloat = CGFloat(arc4random_uniform(300))
+        missile.position = CGPointMake(random, self.frame.size.height + 20)
+        self.addChild(missile)
+    }
     
-//    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-//        /* Called when a touch begins */
-//        
-//        for touch in (touches as! Set<UITouch>) {
-//            let location = touch.locationInNode(self)
-//            
-//            let sprite = SKSpriteNode(imageNamed:"Spaceship")
-//            
-//            sprite.xScale = 0.5
-//            sprite.yScale = 0.5
-//            sprite.position = location
-//            
-//            let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
-//            
-//            sprite.runAction(SKAction.repeatActionForever(action))
-//            
-//            self.addChild(sprite)
-//        }
-//    }
-   
+    func moveObstacle() {
+        self.enumerateChildNodesWithName("missile", usingBlock: { (node, stop) -> Void in
+            if let obstacle = node as? SKSpriteNode {
+                obstacle.position = CGPoint(x: obstacle.position.x , y: obstacle.position.y - self.missileVelocity)
+                if obstacle.position.y < 0 {
+                    obstacle.removeFromParent()
+                }
+            }
+        })
+    }
+    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
+        
+        if currentTime - self.lastMissileAdded > 1 {
+            self.lastMissileAdded = currentTime + 1
+            self.addMissile()
+        }
+        
+        self.moveBackground()
+        self.moveObstacle()
     }
+
 }
