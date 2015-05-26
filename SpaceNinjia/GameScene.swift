@@ -29,12 +29,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.initializingScrollingBackground()
         
         self.addMissile()
+        self.addShip()
         
         // Making self delegate of physics world
         self.physicsWorld.gravity = CGVectorMake(0, 0)
         self.physicsWorld.contactDelegate = self
     }
     
+    func addShip() {
+        // Initializing spaceship node
+        ship = SKSpriteNode(imageNamed: "Spaceship")
+        ship.setScale(0.2)
+        
+        // Adding SpriteKit physics body for collision detection
+        ship.physicsBody = SKPhysicsBody(rectangleOfSize: ship.size)
+        ship.physicsBody?.categoryBitMask = UInt32(shipCategory)
+        ship.physicsBody?.dynamic = true
+        ship.physicsBody?.contactTestBitMask = UInt32(obstacleCategory)
+        ship.physicsBody?.collisionBitMask = 0
+        ship.name = "ship"
+        ship.position = CGPointMake(120, 160)
+        
+        self.addChild(ship)
+        
+        actionMoveUp = SKAction.moveByX(0, y: 30, duration: 0.2)
+        actionMoveDown = SKAction.moveByX(0, y: -30, duration: 0.2)
+    }
 
     
     func initializingScrollingBackground() {
