@@ -74,7 +74,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         missile.name = "missile"
         
         // Selecting random y position for missile
-        var random : CGFloat = CGFloat(arc4random_uniform(300))
+        var random : CGFloat = CGFloat(arc4random_uniform(350))
         missile.position = CGPointMake(random, self.frame.size.height + 20)
         self.addChild(missile)
     }
