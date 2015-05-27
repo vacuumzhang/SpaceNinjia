@@ -94,7 +94,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 // Checks if bg node is completely scrolled off the screen, if yes, then puts it at the end of the other node.
                 if bg.position.y <= -bg.size.height {
-                    bg.position = CGPointMake(bg.position.x , bg.position.y + bg.size.height * 2)
+                    bg.position = CGPointMake(bg.position.x , bg.position.y + bg.size.height * 2 - 1)
                 }
             }
         })
