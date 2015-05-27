@@ -417,6 +417,7 @@
 				F444D8001B152B370079A24C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F444D8011B152B370079A24C /* Build configuration list for PBXNativeTarget "SpaceNinjiaTests" */ = {
 			isa = XCConfigurationList;
@@ -425,6 +426,7 @@
 				F444D8031B152B370079A24C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
