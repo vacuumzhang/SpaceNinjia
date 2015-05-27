@@ -28,6 +28,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.backgroundColor = SKColor.whiteColor()
         self.initializingScrollingBackground()
         
+        self.addLaser()
+        self.topLaser()
         self.addMissile()
         self.addShip()
         
@@ -131,7 +133,67 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         })
     }
     
+    func topLaser(){
+        var TopLaserThriger = SKSpriteNode()
+        TopLaserThriger = SKSpriteNode(imageNamed: "laserThriger")
+        TopLaserThriger.zRotation = CGFloat(-M_PI/2)
+        TopLaserThriger.setScale(0.8)
+        TopLaserThriger.name = "TopLaserThriger"
+        TopLaserThriger.position = CGPointMake(200, 675)
+        self.addChild(TopLaserThriger)
+    }
+    
+    func moveTopLaser(){
+        self.enumerateChildNodesWithName("TopLaserThriger", usingBlock: { (node, stop) -> Void in
+            if let topLaser = node as? SKSpriteNode {
+                var speed : CGFloat = 0.0
+                if topLaser.position.x <= 0 {
+                    speed = -5.0
+                }
+                if topLaser.position.x >= 500{
+                    speed = 5.0
+                }
+            
+                topLaser.position = CGPoint(x: topLaser.position.x - speed , y: topLaser.position.y)
+            }
+        })
+    }
+    
     func addLaser(){
+        var laserThriger1 = SKSpriteNode()
+        var laserThriger2 = SKSpriteNode()
+        var laserThriger3 = SKSpriteNode()
+        var laserThriger4 = SKSpriteNode()
+        
+        laserThriger1 = SKSpriteNode(imageNamed: "laserThriger")
+        laserThriger2 = SKSpriteNode(imageNamed: "laserThriger")
+        laserThriger3 = SKSpriteNode(imageNamed: "laserThriger")
+        laserThriger4 = SKSpriteNode(imageNamed: "laserThriger")
+        
+        laserThriger2.zRotation = CGFloat(-M_PI)
+        laserThriger4.zRotation = CGFloat(-M_PI)
+        
+        
+        laserThriger1.setScale(0.8)
+        laserThriger2.setScale(0.8)
+        laserThriger3.setScale(0.8)
+        laserThriger4.setScale(0.8)
+        
+        laserThriger1.name = "laserThriger"
+        laserThriger2.name = "laserThriger"
+        laserThriger3.name = "laserThriger"
+        laserThriger4.name = "laserThriger"
+        laserThriger1.position = CGPointMake(-2, 200 )
+        laserThriger2.position = CGPointMake(376, 200 )
+        laserThriger3.position = CGPointMake(-2, 500 )
+        laserThriger4.position = CGPointMake(376, 500 )
+        self.addChild(laserThriger1)
+        self.addChild(laserThriger2)
+        self.addChild(laserThriger3)
+        self.addChild(laserThriger4)
+
+
+        
         
     }
     
@@ -162,6 +224,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.lastMissileAdded = currentTime + 1
             self.addMissile()
         }
+        self.moveTopLaser()
         
         self.moveBackground()
         self.moveObstacle()
