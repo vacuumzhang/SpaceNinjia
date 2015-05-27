@@ -55,11 +55,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         actionMoveUp = SKAction.moveByX(0, y: 30, duration: 0.2)
         actionMoveDown = SKAction.moveByX(0, y: -30, duration: 0.2)
     }
+    
+    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
+        for touch: AnyObject in touches {
+            var touchLocation = touch.locationInNode(self)
+            var previousLocation = touch.previousLocationInNode(self)
+            
+            // 4. Calculate new position along x for paddle
+            var shipX = ship.position.x + (touchLocation.x - previousLocation.x)
+            var shipY = ship.position.y + (touchLocation.y - previousLocation.y)
+            
+            // 5. Limit x so that paddle won't leave screen to left or right
+            shipX = max(shipX, ship.size.width/2)
+            shipX = min(shipX, size.width - ship.size.width/2)
+            
+            // 6. Update paddle position
+            ship.position = CGPointMake(shipX, shipY)
+            
+        }
+        
+    }
 
     
     func initializingScrollingBackground() {
         for var index = 0; index < 2; ++index {
             let bg = SKSpriteNode(imageNamed: "Space")
+            bg.setScale(1.2)
             bg.position = CGPoint(x: 0, y: index * Int(bg.size.height))
             bg.anchorPoint = CGPointZero
             bg.name = "background"
@@ -108,6 +129,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         })
+    }
+    func didBeginContact(contact: SKPhysicsContact) {
+        var firstBody = SKPhysicsBody()
+        var secondBody = SKPhysicsBody()
+        
+        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
+            firstBody = contact.bodyA
+            secondBody = contact.bodyB
+        } else {
+            firstBody = contact.bodyB
+            secondBody = contact.bodyA
+        }
+        
+        if (firstBody.categoryBitMask & UInt32(shipCategory)) != 0 && (secondBody.categoryBitMask & UInt32(obstacleCategory)) != 0 {
+            ship.removeFromParent()
+            let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+            let scene = GameOverScene(size: self.size)
+            self.view?.presentScene(scene, transition: reveal)
+        }
     }
     
     override func update(currentTime: CFTimeInterval) {
