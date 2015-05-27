@@ -7,7 +7,7 @@ class GameStartScene: SKScene {
         super.init(size: size)
         
         //1
-        self.backgroundColor = SKColor.whiteColor()
+        self.backgroundColor = SKColor.grayColor()
         
         //2
         let message = "Game Start"

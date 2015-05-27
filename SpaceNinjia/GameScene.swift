@@ -130,6 +130,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         })
     }
+    
+    func addLaser(){
+        
+    }
+    
     func didBeginContact(contact: SKPhysicsContact) {
         var firstBody = SKPhysicsBody()
         var secondBody = SKPhysicsBody()
