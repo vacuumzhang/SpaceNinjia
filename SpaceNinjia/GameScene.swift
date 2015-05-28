@@ -19,6 +19,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     let shipCategory = 0x1 << 1
     let obstacleCategory = 0x1 << 2
+    var direction = true
     
     let backgroundVelocity : CGFloat = 3.0
     let missileVelocity : CGFloat = 5.0
@@ -146,18 +147,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func moveTopLaser(){
         self.enumerateChildNodesWithName("TopLaserThriger", usingBlock: { (node, stop) -> Void in
             if let topLaser = node as? SKSpriteNode {
-                var speed : CGFloat = 0.0
-                if topLaser.position.x <= 0 {
-                    speed = -5.0
+                if topLaser.position.x < 0 {
+                    self.direction = true
                 }
-                if topLaser.position.x >= 500{
-                    speed = 5.0
+                if topLaser.position.x > 377{
+                    self.direction = false
                 }
-            
-                topLaser.position = CGPoint(x: topLaser.position.x - speed , y: topLaser.position.y)
+                
+                if self.direction == false{
+                    topLaser.position = CGPoint(x: topLaser.position.x - 4 , y: topLaser.position.y)
+                }else {
+                    topLaser.position = CGPoint(x: topLaser.position.x + 4 , y: topLaser.position.y)
+                }
             }
+            
         })
     }
+    
     
     func addLaser(){
         var laserThriger1 = SKSpriteNode()
@@ -224,7 +230,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.lastMissileAdded = currentTime + 1
             self.addMissile()
         }
+
         self.moveTopLaser()
+        
         
         self.moveBackground()
         self.moveObstacle()
