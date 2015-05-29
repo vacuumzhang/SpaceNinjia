@@ -9,7 +9,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var ship = SKSpriteNode()
     var actionMoveUp = SKAction()
     var actionMoveDown = SKAction()
+    var laser = SKSpriteNode()
     var lastMissileAdded : NSTimeInterval = 0.0
+    var lastLaserShoot : NSTimeInterval = 0.0
     
     let shipCategory = 0x1 << 1
     let obstacleCategory = 0x1 << 2
@@ -27,8 +29,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.topLaser()
         self.addMissile()
         self.addShip()
-        self.laserShot()
-        
+//        self.laserShot()
+//        
         // Making self delegate of physics world
         self.physicsWorld.gravity = CGVectorMake(0, 0)
         self.physicsWorld.contactDelegate = self
@@ -46,7 +48,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ship.physicsBody?.contactTestBitMask = UInt32(obstacleCategory)
         ship.physicsBody?.collisionBitMask = 0
         ship.name = "ship"
-        ship.position = CGPointMake(120, 160)
+        ship.position = CGPointMake(120, 50)
         
         self.addChild(ship)
         
@@ -193,24 +195,57 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(laserThriger3)
         self.addChild(laserThriger4)
     }
+//    
+//    func laserShot(){
+//        var laser = SKSpriteNode(imageNamed: "lazerShot")
+//        
+//        
+//        laser.physicsBody = SKPhysicsBody(rectangleOfSize: laser.size)
+//        laser.physicsBody?.categoryBitMask = UInt32(obstacleCategory)
+//        laser.physicsBody?.dynamic = true
+//        laser.physicsBody?.contactTestBitMask = UInt32(shipCategory)
+//        laser.physicsBody?.collisionBitMask = 0
+//        laser.physicsBody?.usesPreciseCollisionDetection = true
+//        laser.name = "lazerShot"
+//        
+//        
+//        //var random : CGFloat = CGFloat(arc4random_uniform(3))
+//        
+//        //laser.position = CGPointMake(315, 500)
+//        
+//        self.addChild(laser)
+//        
+//
+//        
+//    }
     
-    func laserShot(){
-        var laser = SKSpriteNode(imageNamed: "laser")
-        laser.setScale(0.1)
-        
+    func shottingLaser(whichShot: Int) {
+        var laser = SKSpriteNode(imageNamed: "lazerShot")
         laser.physicsBody = SKPhysicsBody(rectangleOfSize: laser.size)
         laser.physicsBody?.categoryBitMask = UInt32(obstacleCategory)
         laser.physicsBody?.dynamic = true
         laser.physicsBody?.contactTestBitMask = UInt32(shipCategory)
         laser.physicsBody?.collisionBitMask = 0
         laser.physicsBody?.usesPreciseCollisionDetection = true
-        laser.name = "laser"
-        laser.position = CGPointMake(315, 200)
+        laser.name = "lazerShot"
         
+        
+        switch whichShot{
+            case 1:
+                laser.position = CGPointMake(315, 500)
+            default :
+                laser.position = CGPointMake(315, 200)
+            }
         self.addChild(laser)
-
+        
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+            Int64(1 * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
+            laser.removeFromParent()
+        }
         
     }
+    
     
     func didBeginContact(contact: SKPhysicsContact) {
         var firstBody = SKPhysicsBody()
@@ -238,7 +273,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if currentTime - self.lastMissileAdded > 1 {
             self.lastMissileAdded = currentTime + 1
             self.addMissile()
+            //self.shottingLaser(0)
+            
         }
+        
+        if currentTime - self.lastLaserShoot > 1 {
+            var x = Int(arc4random_uniform(2))
+            self.lastLaserShoot = currentTime + 2
+            self.shottingLaser(x)
+        }
+        
 
         self.moveTopLaser()
         self.moveBackground()
