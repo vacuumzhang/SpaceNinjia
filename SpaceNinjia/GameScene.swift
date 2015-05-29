@@ -40,7 +40,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ship.setScale(0.2)
         
         // Adding SpriteKit physics body for collision detection
-        ship.physicsBody = SKPhysicsBody(rectangleOfSize: ship.size)
+        ship.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 40, height: 40))
         ship.physicsBody?.categoryBitMask = UInt32(shipCategory)
         ship.physicsBody?.dynamic = true
         ship.physicsBody?.contactTestBitMask = UInt32(obstacleCategory)
@@ -104,7 +104,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         missile.setScale(0.15)
         
         // Adding SpriteKit physics body for collision detection
-        missile.physicsBody = SKPhysicsBody(rectangleOfSize: missile.size)
+        missile.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 22.65, height: 20))
         missile.physicsBody?.categoryBitMask = UInt32(obstacleCategory)
         missile.physicsBody?.dynamic = true
         missile.physicsBody?.contactTestBitMask = UInt32(shipCategory)
