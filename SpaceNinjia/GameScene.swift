@@ -1,10 +1,4 @@
-//
-//  GameScene.swift
-//  spaceninja
-//
-//  Created by Yanbo Chen on 5/26/15.
-//  Copyright (c) 2015 Yanbo. All rights reserved.
-//
+
 
 import SpriteKit
 
@@ -33,6 +27,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.topLaser()
         self.addMissile()
         self.addShip()
+        self.laserShot()
         
         // Making self delegate of physics world
         self.physicsWorld.gravity = CGVectorMake(0, 0)
@@ -64,15 +59,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             var touchLocation = touch.locationInNode(self)
             var previousLocation = touch.previousLocationInNode(self)
             
-            // 4. Calculate new position along x for paddle
+            // 4. Calculate new position along x for ship
             var shipX = ship.position.x + (touchLocation.x - previousLocation.x)
             var shipY = ship.position.y + (touchLocation.y - previousLocation.y)
             
-            // 5. Limit x so that paddle won't leave screen to left or right
+            // 5. Limit x so that shpo won't leave screen to left or right
             shipX = max(shipX, ship.size.width/2)
             shipX = min(shipX, size.width - ship.size.width/2)
             
-            // 6. Update paddle position
+            // 6. Update ship position
             ship.position = CGPointMake(shipX, shipY)
             
         }
@@ -197,9 +192,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(laserThriger2)
         self.addChild(laserThriger3)
         self.addChild(laserThriger4)
-
-
+    }
+    
+    func laserShot(){
+        var laser = SKSpriteNode(imageNamed: "laser")
+        laser.setScale(0.1)
         
+        laser.physicsBody = SKPhysicsBody(rectangleOfSize: laser.size)
+        laser.physicsBody?.categoryBitMask = UInt32(obstacleCategory)
+        laser.physicsBody?.dynamic = true
+        laser.physicsBody?.contactTestBitMask = UInt32(shipCategory)
+        laser.physicsBody?.collisionBitMask = 0
+        laser.physicsBody?.usesPreciseCollisionDetection = true
+        laser.name = "laser"
+        laser.position = CGPointMake(315, 200)
+        
+        self.addChild(laser)
+
         
     }
     
@@ -232,8 +241,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
 
         self.moveTopLaser()
-        
-        
         self.moveBackground()
         self.moveObstacle()
     }
