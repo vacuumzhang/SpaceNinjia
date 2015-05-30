@@ -4,9 +4,14 @@ import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-  
+    var label = SKLabelNode()
     
     var ship = SKSpriteNode()
+    
+    var gameStart = true
+    var startTime : CGFloat = 0.0
+    var gameTime : CGFloat = 0.0
+
     
     var TopLaserThriger = SKSpriteNode()
     var laser = SKSpriteNode()
@@ -37,6 +42,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Making self delegate of physics world
         self.physicsWorld.gravity = CGVectorMake(0, 0)
         self.physicsWorld.contactDelegate = self
+        
+        let message = "Score"
+        
+        //3
+        label = SKLabelNode(fontNamed: "Score")
+        //label.text = message
+        label.fontSize = 20
+        label.fontColor = SKColor.whiteColor()
+        label.position = CGPointMake(self.size.width - 100, 10)
+        self.addChild(label)
     }
     
     func addShip() {
@@ -116,6 +131,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         missile.physicsBody?.collisionBitMask = 0
         missile.physicsBody?.usesPreciseCollisionDetection = true
         missile.name = "missile"
+        missile.zPosition = 1.1
         
         // Selecting random y position for missile
         var random : CGFloat = CGFloat(arc4random_uniform(350))
@@ -140,7 +156,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         TopLaserThriger.zRotation = CGFloat(-M_PI/2)
         TopLaserThriger.setScale(0.8)
         TopLaserThriger.name = "TopLaserThriger"
-        TopLaserThriger.position = CGPointMake(200, 675)
+        TopLaserThriger.position = CGPointMake(10, 675)
+        TopLaserThriger.zPosition = 1
         self.addChild(TopLaserThriger)
         
     }
@@ -196,9 +213,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         laserThriger3.name = "laserThriger"
         laserThriger4.name = "laserThriger"
         laserThriger1.position = CGPointMake(-2, 200 )
-        laserThriger2.position = CGPointMake(376, 200 )
+        laserThriger2.position = CGPointMake(376, 202 )
         laserThriger3.position = CGPointMake(-2, 500 )
-        laserThriger4.position = CGPointMake(376, 500 )
+        laserThriger4.position = CGPointMake(376, 502 )
+        
+        laserThriger1.zPosition = 1
+        laserThriger2.zPosition = 1
+        laserThriger3.zPosition = 1
+        laserThriger4.zPosition = 1
+        
         self.addChild(laserThriger1)
         self.addChild(laserThriger2)
         self.addChild(laserThriger3)
@@ -241,9 +264,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         switch whichShot{
             case 1:
-                laser.position = CGPointMake(315, 500)
+                laser.position = CGPointMake(187, 500)
             default :
-                laser.position = CGPointMake(315, 200)
+                laser.position = CGPointMake(187, 200)
             }
         self.addChild(laser)
         
@@ -265,9 +288,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         laser.physicsBody?.collisionBitMask = 0
         laser.physicsBody?.usesPreciseCollisionDetection = true
         laser.name = "lazerShot"
+        //laser.anchorPoint = CGPointMake(0.5, 0.5)
         self.enumerateChildNodesWithName("TopLaserThriger", usingBlock: { (node, stop) -> Void in
             if let topLaser = node as? SKSpriteNode {
-               laser.position = CGPoint(x: topLaser.position.x, y: topLaser.position.y)
+               laser.position = CGPoint(x: topLaser.position.x, y: topLaser.position.y - 300)
             }
             
         })
@@ -346,6 +370,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         }
         
+        if gameStart{
+            startTime = CGFloat(currentTime)
+            gameStart = false
+        }
+        
+        gameTime = CGFloat(currentTime) - startTime
+        
+        //print("\(startTime)")
+        
+        self.label.text = "\(Int(gameTime))"
         //self.topLaserShotting()
         self.moveLaser()
         self.moveTopLaser()
