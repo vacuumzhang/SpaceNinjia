@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F400B8F01B1559A800C83059 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F400B8EF1B1559A800C83059 /* GameOverScene.swift */; };
 		F42CC7201B155C4100862DEA /* GameStartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42CC71F1B155C4100862DEA /* GameStartScene.swift */; };
+		F43B08851B1980D900DAB20A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F43B08841B1980D900DAB20A /* Images.xcassets */; };
 		F444D7E11B152B370079A24C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F444D7E01B152B370079A24C /* AppDelegate.swift */; };
 		F444D7E31B152B370079A24C /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F444D7E21B152B370079A24C /* GameScene.sks */; };
 		F444D7E51B152B370079A24C /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F444D7E41B152B370079A24C /* GameScene.swift */; };
@@ -16,7 +17,6 @@
 		F444D7EA1B152B370079A24C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F444D7E81B152B370079A24C /* Main.storyboard */; };
 		F444D7EF1B152B370079A24C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F444D7ED1B152B370079A24C /* LaunchScreen.xib */; };
 		F444D7FB1B152B370079A24C /* SpaceNinjiaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F444D7FA1B152B370079A24C /* SpaceNinjiaTests.swift */; };
-		F49C67B91B16752E0084B2B1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F49C67B81B16752E0084B2B1 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +32,7 @@
 /* Begin PBXFileReference section */
 		F400B8EF1B1559A800C83059 /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		F42CC71F1B155C4100862DEA /* GameStartScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameStartScene.swift; sourceTree = "<group>"; };
+		F43B08841B1980D900DAB20A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F444D7DB1B152B370079A24C /* SpaceNinjia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceNinjia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F444D7DF1B152B370079A24C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F444D7E01B152B370079A24C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,7 +44,6 @@
 		F444D7F41B152B370079A24C /* SpaceNinjiaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpaceNinjiaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F444D7F91B152B370079A24C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F444D7FA1B152B370079A24C /* SpaceNinjiaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceNinjiaTests.swift; sourceTree = "<group>"; };
-		F49C67B81B16752E0084B2B1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +93,7 @@
 				F400B8EF1B1559A800C83059 /* GameOverScene.swift */,
 				F444D7E81B152B370079A24C /* Main.storyboard */,
 				F444D7ED1B152B370079A24C /* LaunchScreen.xib */,
-				F49C67B81B16752E0084B2B1 /* Images.xcassets */,
+				F43B08841B1980D900DAB20A /* Images.xcassets */,
 				F444D7DE1B152B370079A24C /* Supporting Files */,
 			);
 			path = SpaceNinjia;
@@ -205,7 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F444D7EF1B152B370079A24C /* LaunchScreen.xib in Resources */,
-				F49C67B91B16752E0084B2B1 /* Images.xcassets in Resources */,
+				F43B08851B1980D900DAB20A /* Images.xcassets in Resources */,
 				F444D7E31B152B370079A24C /* GameScene.sks in Resources */,
 				F444D7EA1B152B370079A24C /* Main.storyboard in Resources */,
 			);
@@ -357,6 +357,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SpaceNinjia/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -367,6 +368,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SpaceNinjia/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

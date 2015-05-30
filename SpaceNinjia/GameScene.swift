@@ -57,10 +57,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addShip() {
         // Initializing spaceship node
         ship = SKSpriteNode(imageNamed: "Spaceship")
-        ship.setScale(0.2)
+        ship.setScale(0.1)
         
         // Adding SpriteKit physics body for collision detection
-        ship.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 40, height: 40))
+        //ship.physicsBody = SKPhysicsBody(rectangleOfSize: ship.size)
+        ship.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 20, height: 20))
         ship.physicsBody?.categoryBitMask = UInt32(shipCategory)
         ship.physicsBody?.dynamic = true
         ship.physicsBody?.contactTestBitMask = UInt32(obstacleCategory)
@@ -156,7 +157,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         TopLaserThriger.zRotation = CGFloat(-M_PI/2)
         TopLaserThriger.setScale(0.8)
         TopLaserThriger.name = "TopLaserThriger"
-        TopLaserThriger.position = CGPointMake(10, 675)
+        TopLaserThriger.position = CGPointMake(300, 675)
         TopLaserThriger.zPosition = 1
         self.addChild(TopLaserThriger)
         
@@ -279,9 +280,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func topLaserShotting(){
-        var laser = SKSpriteNode(imageNamed: "lazerShot")
+        var laser = SKSpriteNode(imageNamed: "lazerTop")
         laser.zRotation = CGFloat(-M_PI/2)
-        laser.physicsBody = SKPhysicsBody(rectangleOfSize: laser.size)
+        laser.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 700, height: 20))
         laser.physicsBody?.categoryBitMask = UInt32(obstacleCategory)
         laser.physicsBody?.dynamic = true
         laser.physicsBody?.contactTestBitMask = UInt32(shipCategory)
@@ -379,7 +380,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //print("\(startTime)")
         
-        self.label.text = "\(Int(gameTime))"
+        self.label.text = "Score: \(Int(gameTime))"
         //self.topLaserShotting()
         self.moveLaser()
         self.moveTopLaser()
