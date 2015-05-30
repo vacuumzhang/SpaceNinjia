@@ -1,6 +1,7 @@
 
 
 import SpriteKit
+import AVFoundation
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
@@ -11,6 +12,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gameStart = true
     var startTime : CGFloat = 0.0
     var gameTime : CGFloat = 0.0
+    
+    var bgSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("bgMusic", ofType: "wav")!)
+    var audioPlayer = AVAudioPlayer()
 
     
     var TopLaserThriger = SKSpriteNode()
@@ -32,6 +36,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         /* Setup your scene here */
         self.backgroundColor = SKColor.whiteColor()
         self.initializingScrollingBackground()
+        
+        audioPlayer = AVAudioPlayer(contentsOfURL: bgSound, error: nil)
+        audioPlayer.prepareToPlay()
         
         self.addLaser()
         self.topLaser()
@@ -337,6 +344,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var firstBody = SKPhysicsBody()
         var secondBody = SKPhysicsBody()
         
+        
+        
         if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
             firstBody = contact.bodyA
             secondBody = contact.bodyB
@@ -386,6 +395,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.moveTopLaser()
         self.moveBackground()
         self.moveObstacle()
+        
+        audioPlayer.play()
     }
 
 }
