@@ -14,7 +14,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gameTime : CGFloat = 0.0
     
     var bgSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("bgMusic", ofType: "wav")!)
-    var audioPlayer = AVAudioPlayer()
+    var hitSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("hit", ofType: "wav")!)
+    var audioPlayer1 = AVAudioPlayer()
+    var audioPlayer2 = AVAudioPlayer()
 
     
     var TopLaserThriger = SKSpriteNode()
@@ -37,8 +39,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.backgroundColor = SKColor.whiteColor()
         self.initializingScrollingBackground()
         
-        audioPlayer = AVAudioPlayer(contentsOfURL: bgSound, error: nil)
-        audioPlayer.prepareToPlay()
+        audioPlayer1 = AVAudioPlayer(contentsOfURL: bgSound, error: nil)
+        audioPlayer2 = AVAudioPlayer(contentsOfURL: hitSound, error: nil)
+        audioPlayer1.prepareToPlay()
+        audioPlayer2.prepareToPlay()
         
         self.addLaser()
         self.topLaser()
@@ -341,6 +345,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     
     func didBeginContact(contact: SKPhysicsContact) {
+        audioPlayer2.play()
         var firstBody = SKPhysicsBody()
         var secondBody = SKPhysicsBody()
         
@@ -396,7 +401,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.moveBackground()
         self.moveObstacle()
         
-        audioPlayer.play()
+        audioPlayer1.play()
     }
 
 }
