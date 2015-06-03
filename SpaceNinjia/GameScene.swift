@@ -168,7 +168,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         TopLaserThriger.zRotation = CGFloat(-M_PI/2)
         TopLaserThriger.setScale(0.8)
         TopLaserThriger.name = "TopLaserThriger"
-        TopLaserThriger.position = CGPointMake(300, 675)
+        TopLaserThriger.position = CGPointMake(300, frame.size.height)
         TopLaserThriger.zPosition = 1
         self.addChild(TopLaserThriger)
         
@@ -225,9 +225,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         laserThriger3.name = "laserThriger"
         laserThriger4.name = "laserThriger"
         laserThriger1.position = CGPointMake(-2, 200 )
-        laserThriger2.position = CGPointMake(376, 202 )
+        laserThriger2.position = CGPointMake(frame.size.width, 202 )
         laserThriger3.position = CGPointMake(-2, 500 )
-        laserThriger4.position = CGPointMake(376, 502 )
+        laserThriger4.position = CGPointMake(frame.size.width, 502 )
         
         laserThriger1.zPosition = 1
         laserThriger2.zPosition = 1
@@ -395,6 +395,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //print("\(startTime)")
         
         self.label.text = "Score: \(Int(gameTime))"
+        self.label.zPosition = 2;
         //self.topLaserShotting()
         self.moveLaser()
         self.moveTopLaser()
