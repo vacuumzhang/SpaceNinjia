@@ -7,24 +7,25 @@ class GameStartScene: SKScene {
         super.init(size: size)
         
         //1
-        self.backgroundColor = SKColor.grayColor()
+        self.backgroundColor = SKColor.blueColor()
         
         //2
-        let message = "Game Start"
+        let message = "Space Ninja"
         
         //3
         var label = SKLabelNode(fontNamed: "Chalkduster")
         label.text = message
         label.fontSize = 40
-        label.fontColor = SKColor.blackColor()
+        label.fontColor = SKColor.whiteColor()
         label.position = CGPointMake(self.size.width/2, self.size.height/2)
         self.addChild(label)
         
         //4
-        let startMessage = "Game Start"
-        var startButton = SKLabelNode(fontNamed: "Chalkduster")
-        startButton.text = startMessage
-        startButton.fontColor = SKColor.blackColor()
+        //let startMessage = "Start"
+        //var startButton = SKLabelNode(fontNamed: "Chalkduster")
+        var startButton = SKSpriteNode(imageNamed: "startButton")
+        //startButton.text = startMessage
+        //startButton.fontColor = SKColor.whiteColor()
         startButton.position = CGPointMake(self.size.width/2, 50)
         startButton.name = "Start"
         self.addChild(startButton)
