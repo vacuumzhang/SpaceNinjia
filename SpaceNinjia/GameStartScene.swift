@@ -7,7 +7,7 @@ class GameStartScene: SKScene {
         super.init(size: size)
         
         //1
-        self.backgroundColor = SKColor.blueColor()
+        self.backgroundColor = SKColor.whiteColor()
         
         //2
         let message = "Space Ninja"
@@ -16,7 +16,7 @@ class GameStartScene: SKScene {
         var label = SKLabelNode(fontNamed: "Chalkduster")
         label.text = message
         label.fontSize = 40
-        label.fontColor = SKColor.whiteColor()
+        label.fontColor = SKColor.blackColor()
         label.position = CGPointMake(self.size.width/2, self.size.height/2)
         self.addChild(label)
         

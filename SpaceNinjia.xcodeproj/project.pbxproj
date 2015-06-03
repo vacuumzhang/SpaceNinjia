@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A4624ED61B19C9B800B8CB59 /* bgMusic.wav in Resources */ = {isa = PBXBuildFile; fileRef = A4624ED51B19C9B800B8CB59 /* bgMusic.wav */; };
-		A4624ED81B19CC2700B8CB59 /* hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = A4624ED71B19CC2700B8CB59 /* hit.wav */; };
 		F400B8F01B1559A800C83059 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F400B8EF1B1559A800C83059 /* GameOverScene.swift */; };
 		F42CC7201B155C4100862DEA /* GameStartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42CC71F1B155C4100862DEA /* GameStartScene.swift */; };
 		F43B08851B1980D900DAB20A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F43B08841B1980D900DAB20A /* Images.xcassets */; };
@@ -32,8 +30,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A4624ED51B19C9B800B8CB59 /* bgMusic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bgMusic.wav; sourceTree = "<group>"; };
-		A4624ED71B19CC2700B8CB59 /* hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit.wav; sourceTree = "<group>"; };
 		F400B8EF1B1559A800C83059 /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		F42CC71F1B155C4100862DEA /* GameStartScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameStartScene.swift; sourceTree = "<group>"; };
 		F43B08841B1980D900DAB20A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -68,6 +64,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A4E0E0761B1FB8870012D082 /* GameSound */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = GameSound;
+			sourceTree = "<group>";
+		};
 		F444D7D21B152B370079A24C = {
 			isa = PBXGroup;
 			children = (
@@ -91,15 +94,14 @@
 			children = (
 				F444D7E01B152B370079A24C /* AppDelegate.swift */,
 				F444D7E21B152B370079A24C /* GameScene.sks */,
-				F444D7E41B152B370079A24C /* GameScene.swift */,
 				F444D7E61B152B370079A24C /* GameViewController.swift */,
+				F444D7E41B152B370079A24C /* GameScene.swift */,
 				F42CC71F1B155C4100862DEA /* GameStartScene.swift */,
 				F400B8EF1B1559A800C83059 /* GameOverScene.swift */,
 				F444D7E81B152B370079A24C /* Main.storyboard */,
 				F444D7ED1B152B370079A24C /* LaunchScreen.xib */,
+				A4E0E0761B1FB8870012D082 /* GameSound */,
 				F43B08841B1980D900DAB20A /* Images.xcassets */,
-				A4624ED71B19CC2700B8CB59 /* hit.wav */,
-				A4624ED51B19C9B800B8CB59 /* bgMusic.wav */,
 				F444D7DE1B152B370079A24C /* Supporting Files */,
 			);
 			path = SpaceNinjia;
@@ -210,8 +212,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4624ED81B19CC2700B8CB59 /* hit.wav in Resources */,
-				A4624ED61B19C9B800B8CB59 /* bgMusic.wav in Resources */,
 				F444D7EF1B152B370079A24C /* LaunchScreen.xib in Resources */,
 				F43B08851B1980D900DAB20A /* Images.xcassets in Resources */,
 				F444D7E31B152B370079A24C /* GameScene.sks in Resources */,
