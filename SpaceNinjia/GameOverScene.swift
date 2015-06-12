@@ -7,7 +7,7 @@ class GameOverScene: SKScene {
         super.init(size: size)
         
         //1
-        self.backgroundColor = SKColor.grayColor()
+        self.backgroundColor = SKColor.whiteColor()
         
         //2
         let message = "Game over"

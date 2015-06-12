@@ -68,7 +68,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addShip() {
         // Initializing spaceship node
         ship = SKSpriteNode(imageNamed: "Spaceship")
-        ship.setScale(0.1)
+        ship.setScale(0.2)
         
         // Adding SpriteKit physics body for collision detection
         //ship.physicsBody = SKPhysicsBody(rectangleOfSize: ship.size)
